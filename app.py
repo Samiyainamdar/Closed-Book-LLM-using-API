@@ -1,5 +1,5 @@
 import os # read env variables
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify, render_template
 import time #delay between api calls
 from google import genai # client library that talks, format requests to GEMINI and parse responses 
 from load_data import load_data 
@@ -7,6 +7,11 @@ from load_data import load_data
 app = Flask(__name__)
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+@app.route("/")
+
+def home():
+    return render_template("index.html")
 
 
 @app.route("/analyze", methods=["POST"])

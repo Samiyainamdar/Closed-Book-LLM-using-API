@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Closed Book LLM</title>
+    <style>
+        body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 20px; }
+        input { background: #161b22; color: white; border: 1px solid #30363d; padding: 10px; width: 300px; }
+        button { background: #238636; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+        #response { white-space: pre-wrap; background: #161b22; padding: 15px; border-radius: 5px; border: 1px solid #30363d; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Closed Book LLM</h2>
+
+    <input type="text" id="question" placeholder="Ask local data...">
+    <button onclick="askQuestion()">ASK</button>
+
+    <h3>Output:</h3>
+    <div id="response">Waiting for input...</div>
+
+    <script>
+    async function askQuestion() {
+        const responseDiv = document.getElementById("response");
+        const question = document.getElementById("question").value;
+        
+        responseDiv.innerText = "Processing request...";
+
+        try {
+            const response = await fetch("/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ question: question })
+            });
+
+            const data = await response.json();
+            console.log("Backend response:", data);
+
+            let output = "";
+
+            if (data.results) {
+                
+                data.results.forEach(item => {
+                    output += `[File]: ${item.file}\n[Answer]: ${item.answer}\n\n`;
+                });
+            } else if (data.error) {
+                output = "Error: " + data.error;
+            } else {
+                output = "Unexpected response structure. Check Console.";
+            }
+
+            responseDiv.innerText = output;
+
+        } catch (error) {
+            responseDiv.innerText = "Critical Error: Could not connect to Flask server.";
+        }
+    }
+    </script>
+</body>
+</html>
