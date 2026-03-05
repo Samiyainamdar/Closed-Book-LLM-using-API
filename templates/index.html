@@ -19,6 +19,20 @@
     <h3>Output:</h3>
     <div id="response">Waiting for input...</div>
 
+    <div id="chat-history">
+
+    {% for chat in chats %}
+
+    <div class="chat">
+        <p><b>You:</b> {{ chat.question }}</p>
+        <p><b>Bot:</b> {{ chat.answer }}</p>
+    </div>
+
+<hr>
+
+{% endfor %}
+
+</div>
     <script>
     async function askQuestion() {
         const responseDiv = document.getElementById("response");

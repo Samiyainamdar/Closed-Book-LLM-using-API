@@ -1,15 +1,16 @@
 # Virtual environment
 Lib/
 Scripts/
-pyvenv.cfg
+Include/
 share/
+pyvenv.cfg
 
 # Python cache
 __pycache__/
 *.pyc
 
+# Local files
+chat_history.json
+
 # Environment variables
 .env
-
-# VS Code
-.vscode/
