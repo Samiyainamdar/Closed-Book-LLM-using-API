@@ -1,118 +1,121 @@
-# LLM Document Question Answering System
+# Closed Book LLM
 
-This project is a simple document-based Question Answering application built using Python, Flask, and Google’s Gemini API.
-
-The system allows users to ask questions about locally stored documents, and the LLM generates answers strictly based on the provided data. It behaves like a closed-book LLM that does not rely on external internet knowledge.
-
-The application also stores chat history locally so previous conversations can be displayed on the UI.
+A Flask-based AI system that answers questions **strictly from local documents** instead of external knowledge.  
+The application uses Google's Gemini model but restricts responses to provided file content.
 
 ---
 
 ## Features
 
-- Ask questions about local documents
-- LLM responses generated using Gemini 2.5 Flash
-- Answers restricted to provided document content
-- Chat interface with conversation history
-- Chat history stored using JSON
-- Flask backend with simple frontend UI
+- Closed-book LLM querying
+- Gemini API integration
+- Multi-document analysis
+- User authentication (Signup/Login)
+- Password hashing for security
+- Session-based access control
+- Persistent chat history
+- Simple interactive web interface
 
 ---
 
 ## Tech Stack
 
+Backend
 - Python
 - Flask
+
+AI
 - Google Gemini API
-- HTML / JavaScript
-- JSON (for chat history storage)
+
+Frontend
+- HTML
+- CSS
+- JavaScript (Fetch API)
+
+Security
+- Werkzeug password hashing
+- Flask session authentication
 
 ---
 
 ## Project Structure
 
 
-project-folder
+closed-book-llm/
 │
-├── data/ # Documents used as the knowledge base
-├── templates/ # HTML frontend
+├── app.py
+├── load_data.py
+├── users.json
 │
-├── app.py # Main Flask application
-├── load_data.py # Loads and processes documents
-├── requirements.txt # Python dependencies
-├── README.md
-└── .gitignore
+├── chat_history/
+│
+├── templates/
+│ ├── index.html
+│ ├── login.html
+│ └── signup.html
+│
+└── README.md
 
 
 ---
 
-## How It Works
+## Installation
 
-1. User asks a question from the UI
-2. Flask backend receives the request
-3. Documents are loaded from the `data` folder
-4. Each document is sent to the Gemini API
-5. Gemini generates answers based on document content
-6. Responses are returned to the UI
-7. The question and response are stored in `chat_history.json`
+### 1 Install dependencies
 
----
+```bash
+pip install flask google-genai werkzeug
+2 Set Gemini API Key
 
-## Setup Instructions
+Linux / Mac
 
-### 1. Clone the repository
+export GEMINI_API_KEY=your_api_key
 
+Windows
 
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-
-cd YOUR_REPO_NAME
-
-
-### 2. Install dependencies
-
-
-pip install -r requirements.txt
-
-
-### 3. Set your Gemini API key
-
-Mac/Linux:
-
-
-export GEMINI_API_KEY="your_api_key_here"
-
-
-Windows (PowerShell):
-
-
-setx GEMINI_API_KEY "your_api_key_here"
-
-
-### 4. Run the application
-
-
+set GEMINI_API_KEY=your_api_key
+3 Run the application
 python app.py
 
-
-### 5. Open in browser
-
+Open in browser:
 
 http://127.0.0.1:5000
+How It Works
 
+User signs up or logs in
 
----
+User asks a question
 
-## Future Improvements
+Server loads local documents
 
-- Implement vector search (RAG) instead of sending all documents to the LLM
-- Add document embeddings
-- Improve the chat interface
-- Store chat history in a database instead of JSON
-- Add multi-document retrieval
+Each document is sent to Gemini
 
----
+Gemini generates answers only using that content
 
-Built as a learning project to understand LLM APIs, document QA systems, and Flask-based AI applications.
+Results are returned and stored as chat history
 
-## Author
+Example Query
+
+User:
+
+What does this document say about machine learning?
+
+Response:
+
+[file1.txt]
+Answer generated from document content...
+Future Improvements
+
+Vector database (FAISS / Chroma)
+
+Embedding-based retrieval (RAG)
+
+Streaming LLM responses
+
+ChatGPT-style UI
+
+Cloud deployment
+
+Author
+
 Samiya Inamdar
