@@ -8,11 +8,17 @@
         input { background: #161b22; color: white; border: 1px solid #30363d; padding: 10px; width: 300px; }
         button { background: #238636; color: white; border: none; padding: 10px 20px; cursor: pointer; }
         #response { white-space: pre-wrap; background: #161b22; padding: 15px; border-radius: 5px; border: 1px solid #30363d; margin-top: 10px; }
+        .logout {
+    position:absolute;
+    top:20px;
+    right:20px;
+}
     </style>
 </head>
 <body>
     <h2>Closed Book LLM</h2>
 
+    <a href="/logout" class="logout"><button>Logout</button></a>
     <input type="text" id="question" placeholder="Ask local data...">
     <button onclick="askQuestion()">ASK</button>
 

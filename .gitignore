@@ -10,7 +10,15 @@ __pycache__/
 *.pyc
 
 # Local files
+chat_history/
 chat_history.json
+
+# User database
+users.json
+
+# OS
+.DS_Store
 
 # Environment variables
 .env
+
